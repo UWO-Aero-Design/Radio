@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+message Message {
+    enum Location {
+        GROUND_STATION = 0;
+        DRONE = 1;
+    }
+
+    enum Status {
+        POWER_ON = 0;
+        CALIBRATING = 1;
+        READY = 2;
+    }
+    // Packet info 
+    Location sender = 1;
+    Location recipient = 2; 
+    int32 packet_number = 3;
+    int64 time = 4;
+    Status status = 5;
+
+    // data 
+    command_struct commands = 6;
+}
+
+message command_struct {
+    fixed32 cmdType = 1;
+    orientation_ref_struct orientReferenceCmd = 2;
+    position_ref_struct posReferenceCmd = 3;
+}
+
+message orientation_ref_struct {
+    float yaw = 1;
+    float pitch = 2;
+    float roll = 3;
+    float z = 4;
+}
+
+message position_ref_struct {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+    float yaw = 4;
+}
